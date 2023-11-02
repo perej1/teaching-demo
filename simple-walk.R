@@ -30,7 +30,8 @@ paths <- rerun(opt$m, sample(c(-1, 1), opt$n, replace = TRUE)) |>
 
 colors <- c(rep("gray80", opt$m - 1), "black")
 
-gplot <- melt(paths, id.vars = "index", variable.name = "path", value.name = "value") |>
+gplot <- melt(paths, id.vars = "index", variable.name = "path",
+              value.name = "value") |>
   ggplot(aes(x = index, y = value, group = path, color = path)) +
   geom_point() +
   geom_line() +
@@ -41,5 +42,5 @@ gplot <- melt(paths, id.vars = "index", variable.name = "path", value.name = "va
         legend.position = "none") +
   labs(x = "t", y = "Value")
 
-ggsave("slides/random_walk.jpg",
-       plot = gplot, width = 7, height = 7, dpi = 1000)
+ggsave("slides/random_walk.jpg", plot = gplot, width = 7, height = 7,
+       dpi = 1000)
