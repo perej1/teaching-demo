@@ -24,22 +24,33 @@
 \addbibresource{sources.bib}
 \setbeamertemplate{bibliography item}{}
 
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
 % Show greyed table of contents before each section and subsection.
-\AtBeginSection[]
-{
-    \begin{frame}
-        \frametitle{Contents}
-        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Contents}
+%        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
         %\tableofcontents
-    \end{frame}
-}
-\AtBeginSubsection[]
-{
-    \begin{frame}
-        \frametitle{Contents}
-        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
-    \end{frame}
-}
+%    \end{frame}
+%}
+%\AtBeginSubsection[]
+%{
+%    \begin{frame}
+%        \frametitle{Contents}
+%        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
+%    \end{frame}
+%}
 
 % Info about presentation
 \title{Stationarity of Stochastic Processes}
@@ -50,24 +61,57 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT BEGINS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-
 \frame{\titlepage}
 
-\begin{frame}{Contents}
-\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Preliminaries: Random variables}
+  \begin{columns}
+    \begin{column}{0.47\textwidth}
+        \begin{itemize}
+          \item Do you have an intuitive idea about what is a random variable?
+          \item Do you know examples of random variables?
+          \pause
+          \begin{itemize}
+            \item Flip of a coin
+            \pause
+            \item Roll of a die
+            \pause
+            \item Daily maximum temperature
+          \end{itemize}
+          \pause
+          \item For a rigorous treatment of probability theory, see
+          \parencite{kallenberg1997}.
+        \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \begin{figure}
+          \centering
+          \includegraphics[width=0.7\textwidth, height=0.85\textwidth]{kolmogorov.jpeg}
+          \caption{Andrey Kolmogorov (1903 - 1987)}
+        \end{figure}
+    \end{column}
+\end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Test}
+\section{Stochastic Process and Time Series? \parencite{brockwell2009}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Test}
-  \begin{itemize}
-    \item Test cite \parencite{brockwell2009}.
-  \end{itemize}
+\begin{frame}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth, height=0.7\textwidth]{random_walk.jpg}
+    \caption{10 realizations of the simple random walk. Here $t \in T = \{0, 1,
+    \ldots, 100\}$.}
+  \end{figure}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{(Weak) Stationarity}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
