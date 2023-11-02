@@ -1,0 +1,77 @@
+\documentclass{beamer}
+\usetheme{Aalto} % Aalto theme
+
+% Required packages
+\usepackage{bm} % Bolding
+\usepackage[english]{babel} % Language typesetting
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[absolute,overlay]{textpos}	
+\usepackage{amsfonts,amssymb,amsbsy,amsthm,amsmath,mathtools,enumerate,verbatim}
+\usepackage{color, colortbl}
+\usepackage[font=scriptsize]{caption} % Smaller font for captions
+\usepackage{hyperref} % Hyperlinks
+\usepackage[useregional]{datetime2} % Format dates
+\usepackage{csquotes}
+\usepackage{subfigure} % Subfigures
+
+\newtheorem{maaritelma}{Määritelmä}
+\newtheorem*{teoreema}{Teoreema}
+
+% Bibliography and style.
+\usepackage[style=authoryear]{biblatex}
+\addbibresource{sources.bib}
+\setbeamertemplate{bibliography item}{}
+
+% Show greyed table of contents before each section and subsection.
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
+        %\tableofcontents
+    \end{frame}
+}
+\AtBeginSubsection[]
+{
+    \begin{frame}
+        \frametitle{Contents}
+        \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/shaded/shaded]
+    \end{frame}
+}
+
+% Info about presentation
+\title{Stationarity of Stochastic Processes}
+\author{Jaakko Pere}
+\date{\DTMdisplaydate{2023}{11}{06}{-1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DOCUMENT BEGINS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Contents}
+\tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Test}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Test}
+  \begin{itemize}
+    \item Test cite \parencite{brockwell2009}.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}[allowframebreaks]{References}
+  \printbibliography
+\end{frame}
+\end{document}
