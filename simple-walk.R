@@ -9,7 +9,7 @@ option_list <- list(
               help = "Number of paths"),
   make_option("--n", type = "integer", default = 100,
               help = "Length of the path"),
-  make_option("--seed", type = "integer", default = 321,
+  make_option("--seed", type = "integer", default = 123,
               help = "Set random seed")
 )
 opt_parser <- OptionParser(option_list = option_list)
@@ -21,6 +21,7 @@ if (opt$m > length(letters)) {
                  {length(letters)}.")
 }
 
+set.seed(opt$seed)
 paths <- rerun(opt$m, sample(c(-1, 1), opt$n, replace = TRUE)) |>
   map(~ c(0, .x)) |>
   map(cumsum) |>
