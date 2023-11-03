@@ -1,0 +1,136 @@
+---
+title: "Stationary process or not"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tibble)
+library(ggplot2)
+library(purrr)
+library(reshape2)
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Welcome
+
+In the exercises you will see realizations of time series. In each exercise, based on the figure, you need to decide if the time series is stationary or not. Remember that a time series $\{X_t : t \in \mathbb{Z}\}$ is stationary if
+
+1. $\mathbb E |X_t|^2 < \infty$ for all $t\in\mathbb{Z}$,
+
+2. $\mathbb E X_t = m$ for all $t\in\mathbb{Z}$ and
+
+3. $\mathrm{Cov}(X_r, X_s) = \mathrm{Cov}(X_{r + t}, X_{s + t})$ for all $r,s,t\in\mathbb{Z}$.
+
+Covariance between two random variables $X$ and $Y$ is defined as $\mathrm{Cov}(X, Y) = \mathbb E((X - \mathbb E X)(Y - \mathbb E Y))$. Covariance tells if there is linear dependence between two random variables:
+
+- $\mathrm{Cov}(X, Y) = 0 \Rightarrow$ $X$ and $Y$ are linearly independent.
+
+- $\mathrm{Cov}(X, Y) > 0 \Rightarrow$ $X$ and $Y$ are positively correlated.
+
+- $\mathrm{Cov}(X, Y) < 0 \Rightarrow$ $X$ and $Y$ are negatively correlated.
+
+## Exercise 1: Carbon Dioxide Measurements
+
+Below time series represents montly carbon dioxide measurements of the Mauna Loa volcano in Hawaii from 1959 to 1997 (one measurement per month, 468 observations).
+
+```{r carbon-figure}
+co2 <- tibble(value = as.vector(co2), time = zoo::as.Date(time(co2)))
+ggplot(co2, aes(x = time, y = value)) +
+  geom_line() +
+  scale_x_date(date_labels = "%m/%Y", date_breaks = "5 year") +
+  labs(x = "Time", y = "Value") +
+  theme(axis.line = element_line(colour = "black"),
+        panel.background = element_blank(),
+        axis.text.x = element_text(angle = 60, hjust = 1))
+```
+
+```{r carbon-question}
+question("Is the time series stationary?",
+         answer("no", correct = TRUE),
+         answer("yes"),
+         message = "The time series is not stationary. There is an upward trend, which violates Assumption 2. Also, there seems to be seasonality, which violates Assumption 2 as well.")
+```
+
+## Exercise 2: Simulated Data from $AR(1)$ Process
+
+Let $\varepsilon_t \sim N(0,1)$, $t \in\{1, 2, \ldots, 1000\}$, be independent and identically distributed random variables from the standard normal distribution. Below time series is simulated from the so called $\mathrm{AR}(1)$ process (AR = autoregressive),
+\begin{equation*}
+X_t =
+  \begin{cases}
+    0, & t = 0 \\
+    \theta X_{t-1} + \varepsilon_t, & t\in\{1, 2, \ldots, 1000\},
+  \end{cases}
+\end{equation*}
+when we set $\theta = 0.5$. 
+
+```{r ar-figure}
+n <- 1000
+theta <- 0.5
+epsilon <- rnorm(n)
+x <- rep(0, n + 1)
+for (i in 2:length(x)) {
+  x[i] <- theta * x[i - 1] + epsilon[i - 1]
+}
+
+tibble(value = x, time = 0:n) |>
+  ggplot(aes(x = time, y = value)) +
+  geom_line() +
+  labs(x = "Time", y = "Value") +
+  theme(axis.line = element_line(colour = "black"),
+        panel.background = element_blank())
+```
+
+```{r ar-question}
+question("Is the time series stationary?",
+         answer("no"),
+         answer("yes", correct = TRUE),
+         message = "The time series is stationary. There is no trend or seasonality, which suggests that the stationarity assumption might hold. It is quite hard to see in this figure alone, but also the Assumption 3 is satisfied. In order to check Assumption 3 we need more tools such as the autocorrelation function.")
+```
+
+## Exercise 3: Simple Random Walk
+
+Let $\varepsilon_t$, $t \in\{1, 2, \ldots, 100\}$, be independent random variables such that $\mathbb{P}(\varepsilon_t = -1) = \mathbb{P}(\varepsilon_t = 1) = 1/2$. Below figure includes 10 realizations of the simple random walk,
+\begin{equation*}
+X_t =
+  \begin{cases}
+    0, & t = 0 \\
+    X_{t-1} + \varepsilon_t, & t\in\{1, 2, \ldots, 100\},
+  \end{cases}
+\end{equation*}
+
+```{r simple-figure}
+m <- 10
+n <- 100
+seed <- 123
+
+set.seed(seed)
+paths <- rerun(m, sample(c(-1, 1), n, replace = TRUE)) |>
+  map(~ c(0, .x)) |>
+  map(cumsum) |>
+  set_names(letters[1:m]) |>
+  as_tibble() |>
+  dplyr::mutate(index = 0:n)
+
+colors <- c(rep("gray80", m - 1), "black")
+
+melt(paths, id.vars = "index", variable.name = "path", value.name = "value") |>
+  ggplot(aes(x = index, y = value, group = path, color = path)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Time", y = "Value") +
+  scale_color_manual(values = colors) +
+  theme(axis.line = element_line(colour = "black"),
+        panel.background = element_blank(),
+        legend.background = element_blank(),
+        legend.position = "none")
+```
+
+```{r simple-question}
+question("Is the time series stationary?",
+         answer("no", correct = TRUE),
+         answer("yes"),
+         message = "The time series is not stationary. Assumption 3 is violated since variance blows up as time increases. This phenomenon is visible on the above figure.")
+```
