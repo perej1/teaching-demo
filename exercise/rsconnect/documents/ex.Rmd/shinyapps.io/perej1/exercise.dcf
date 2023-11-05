@@ -1,0 +1,13 @@
+name: exercise
+title: exercise
+username: perej1
+account: perej1
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10421998
+bundleId: 7891891
+url: https://perej1.shinyapps.io/exercise/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ex.html|ex_files

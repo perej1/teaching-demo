@@ -51,7 +51,9 @@ ggplot(co2, aes(x = time, y = value)) +
 question("Is the time series stationary?",
          answer("no", correct = TRUE),
          answer("yes"),
-         message = "The time series is not stationary. There is an upward trend, which violates Assumption 2. Also, there seems to be seasonality, which violates Assumption 2 as well.")
+         message = "The time series is not stationary. There is an upward trend,
+         which violates Assumption 2. Also, there seems to be seasonality, which
+         violates Assumption 2 as well.")
 ```
 
 ## Exercise 2: Simulated Data from $AR(1)$ Process
@@ -87,7 +89,11 @@ tibble(value = x, time = 0:n) |>
 question("Is the time series stationary?",
          answer("no"),
          answer("yes", correct = TRUE),
-         message = "The time series is stationary. There is no trend or seasonality, which suggests that the stationarity assumption might hold. It is quite hard to see in this figure alone, but also the Assumption 3 is satisfied. In order to check Assumption 3 we need more tools such as the autocorrelation function.")
+         message = "The time series is stationary. There is no trend or
+         seasonality, which suggests that the stationarity assumption might
+         hold. It is quite hard to see in this figure alone, but also the
+         Assumption 3 is satisfied. In order to check Assumption 3 we need
+         more tools such as the autocorrelation function.")
 ```
 
 ## Exercise 3: Simple Random Walk
@@ -132,5 +138,7 @@ melt(paths, id.vars = "index", variable.name = "path", value.name = "value") |>
 question("Is the time series stationary?",
          answer("no", correct = TRUE),
          answer("yes"),
-         message = "The time series is not stationary. Assumption 3 is violated since variance blows up as time increases. This phenomenon is visible on the above figure.")
+         message = "The time series is not stationary. Assumption 3 is violated
+         since variance blows up as time increases. This phenomenon is visible
+         on the above figure.")
 ```
