@@ -2,6 +2,10 @@
 
 Teaching demonstration for a pedagogy course.
 
+## Link to the repository
+
+https://github.com/perej1/teaching-demo
+
 ## Link to the exercise
 
 https://perej1.shinyapps.io/exercise/
